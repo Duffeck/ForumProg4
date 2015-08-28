@@ -1,0 +1,8 @@
+<#if licenseFirst??>
+${licenseFirst}
+</#if>
+${licensePrefix}Desenvolvido por Lucas Duffeck Ribeiro para a disciplina de Programacao 4
+${licensePrefix}BSI - PUC PR - 4o Período.
+<#if licenseLast??>
+${licenseLast}
+</#if>
