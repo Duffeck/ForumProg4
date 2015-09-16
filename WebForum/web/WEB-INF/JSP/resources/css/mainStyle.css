@@ -13,3 +13,8 @@ h1 {
 body {
     background-color: grey;
 }
+
+.assuntoTable{
+    border: 2px;
+    border-style: solid;
+}
