@@ -4,7 +4,6 @@
  */
 
 package br.pucpr.prog4.forum.models;
-import br.pucpr.prog4.forum.enums.AssuntoEnum;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -15,10 +14,10 @@ import java.util.List;
 public class Topico {
     private String titulo, criador, conteudo;
     private Date data;
-    private AssuntoEnum assunto;
+    private Assunto assunto;
     private List<Mensagem> mensagens;
 
-    public Topico(String titulo, String criador, String conteudo, Date data, AssuntoEnum assunto) {
+    public Topico(String titulo, String criador, String conteudo, Date data, Assunto assunto) {
         this.titulo = titulo;
         this.criador = criador;
         this.conteudo = conteudo;
@@ -59,11 +58,11 @@ public class Topico {
         this.data = data;
     }
 
-    public AssuntoEnum getAssunto() {
+    public Assunto getAssunto() {
         return assunto;
     }
 
-    public void setAssunto(AssuntoEnum assunto) {
+    public void setAssunto(Assunto assunto) {
         this.assunto = assunto;
     }
     

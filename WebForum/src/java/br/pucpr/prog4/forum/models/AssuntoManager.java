@@ -4,15 +4,13 @@
  */
 package br.pucpr.prog4.forum.models;
 
+import java.util.List;
+
 /**
  *
  * @author lucas.ribeiro
  */
-public interface TopicoManager {
+public interface AssuntoManager {
     
-    public Topico cadastrar(Topico topico);
-    
-    public Topico selecionarPorID(int id);
-    
-    
+    public List<Assunto> getListaDeAssuntos();
 }

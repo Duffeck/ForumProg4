@@ -14,7 +14,15 @@ import java.sql.SQLException;
  */
 public class JdbcDaoManager implements DaoManager{
     
+    private JdbcAssuntoDao assuntoDao;
     private Connection conexão;
+    private static JdbcDaoManager instancia = new JdbcDaoManager();
+    
+    private JdbcDaoManager(){}
+    
+    public static JdbcDaoManager getInstance(){
+        return instancia;
+    }
     
     @Override
     public void iniciar() throws DaoException {
@@ -22,7 +30,7 @@ public class JdbcDaoManager implements DaoManager{
             Class.forName("com.mysql.jdbc.Driver");
             String url;
             url = "jdbc:mysql://localhost:3306/forum";//nome do schema
-            conexão = DriverManager.getConnection(url, "root", "root");
+            conexão = DriverManager.getConnection(url, "root", "");
             conexão.setAutoCommit(false);
         }catch(Exception e){
             throw new DaoException("Ocorreu um erro ao conectar ao banco de dados:" + 
@@ -58,6 +66,10 @@ public class JdbcDaoManager implements DaoManager{
            throw new DaoException("Erro ao confirmar a transação!");
         }
         
+    }
+
+    public AssuntoDao getAssuntoDao() {
+        return assuntoDao;
     }
     
 }

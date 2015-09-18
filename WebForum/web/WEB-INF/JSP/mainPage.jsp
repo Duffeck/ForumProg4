@@ -63,6 +63,11 @@
                         Última Postagem
                     </th>
                 </tr>
+                <c:forEach var="assunto" items="${assuntos}">
+                    <tr>
+                        <td>${assunto.nome}</td>
+                    </tr>
+                </c:forEach>
             </table>
         </div>
         

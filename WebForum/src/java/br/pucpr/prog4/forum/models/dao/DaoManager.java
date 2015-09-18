@@ -6,5 +6,6 @@ public interface DaoManager
     void encerrar();
     void confirmarTransação();
     void abortarTransação();
+    AssuntoDao getAssuntoDao();
     
 }

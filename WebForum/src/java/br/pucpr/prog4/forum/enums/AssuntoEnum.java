@@ -9,28 +9,21 @@ package br.pucpr.prog4.forum.enums;
  * @author lucas.ribeiro
  */
 public enum AssuntoEnum {
-    PC(1, "pc", "Jogos de Computador"),
-    JOGOSDEMESA(2, "jm", "Jogos de Mesa"),
-    PLAYSTATION(3, "ps", "Jogos de PlayStation"),
-    XBOX(4, "xb", "Jogos de Xbox"),
-    DS(5, "3d", "Jogos de 3DS");
+    DS("ds", "Nintendo 3DS"),
+    XBOX("xbox", "Microsoft Xbox"),
+    PLAYSTATION("playstation", "Sony Playstation"),
+    PC("pc", "Computador"),
+    JOGOSDEMESA("jogos_de_mesa", "Jogos de Tabuleiro");
     
-    private int id;
-    private String sigla, descrição;
+    private String nome, sigla;
     
-    private AssuntoEnum(int id, String sigla, String descrição){
-        this.id = id;
+    private AssuntoEnum(String sigla, String nome){
+        this.nome = nome;
         this.sigla = sigla;
-        this.descrição = descrição;
-    }
-    
-    @Override
-    public String toString(){
-        return this.descrição;
     }
 
-    public int getId() {
-        return id;
+    public String getNome() {
+        return nome;
     }
 
     public String getSigla() {

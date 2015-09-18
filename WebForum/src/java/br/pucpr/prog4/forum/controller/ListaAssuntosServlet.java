@@ -4,8 +4,12 @@
  */
 package br.pucpr.prog4.forum.controller;
 
+import br.pucpr.prog4.forum.models.Assunto;
+import br.pucpr.prog4.forum.models.AssuntoManagerImpl;
+import br.pucpr.prog4.forum.models.dao.DaoManager;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -17,6 +21,10 @@ public class ListaAssuntosServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        AssuntoManagerImpl manager = new AssuntoManagerImpl();
+        List<Assunto> assuntos = manager.getListaDeAssuntos();
+        
+        request.setAttribute("assuntos", assuntos);
         
         RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/JSP/mainPage.jsp");
         rd.forward(request, response);

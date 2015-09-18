@@ -5,7 +5,6 @@
 
 package br.pucpr.prog4.forum.models;
 
-import br.pucpr.prog4.forum.enums.AssuntoEnum;
 import java.util.Date;
 
 /**
@@ -15,7 +14,7 @@ import java.util.Date;
 public class Mensagem extends Topico{
 
     private int idtopico;
-    public Mensagem(String titulo, String criador, String conteudo, Date data, AssuntoEnum assunto, int idtopico) {
+    public Mensagem(String titulo, String criador, String conteudo, Date data, Assunto assunto, int idtopico) {
         super(titulo, criador, conteudo, data, assunto);
         this.idtopico = idtopico;
     }
