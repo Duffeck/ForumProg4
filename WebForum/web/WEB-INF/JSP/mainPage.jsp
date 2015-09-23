@@ -65,7 +65,10 @@
                 </tr>
                 <c:forEach var="assunto" items="${assuntos}">
                     <tr>
-                        <td>${assunto.nome}</td>
+                        <td title="${assunto.descrição}">${assunto.nome}</td>
+                        <td style="text-align: center;">${assunto.totalTopicos}</td>
+                        <td style="text-align: center;">${assunto.totalMensagens}</td>
+                        <td>${assunto.ultimoTopico}</td>
                     </tr>
                 </c:forEach>
             </table>

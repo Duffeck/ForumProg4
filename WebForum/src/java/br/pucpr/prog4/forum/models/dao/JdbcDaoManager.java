@@ -29,7 +29,7 @@ public class JdbcDaoManager implements DaoManager{
         try{
             Class.forName("com.mysql.jdbc.Driver");
             String url;
-            url = "jdbc:mysql://localhost:3306/forum";//nome do schema
+            url = "jdbc:mysql://localhost:3306/theforum";//nome do schema
             conexão = DriverManager.getConnection(url, "root", "");
             conexão.setAutoCommit(false);
         }catch(Exception e){
@@ -69,7 +69,7 @@ public class JdbcDaoManager implements DaoManager{
     }
 
     public AssuntoDao getAssuntoDao() {
-        return assuntoDao;
+        return new JdbcAssuntoDao(conexão);
     }
     
 }

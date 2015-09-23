@@ -35,5 +35,23 @@ public class AssuntoManagerImpl implements AssuntoManager{
         }
         
     }
+
+    public Assunto getAssuntoCompleto(Assunto assunto) {
+        DaoManager mg = DaoFactory.getInstance();
+        
+        try{
+            mg.iniciar();
+            AssuntoDao dao = mg.getAssuntoDao();
+            assunto = dao.getAssuntoCompleto(assunto);
+            
+            mg.confirmarTransação();
+            mg.encerrar();
+            
+            return assunto;
+        }catch(Exception e){
+            mg.abortarTransação();
+            return null;
+        }
+    }
     
 }

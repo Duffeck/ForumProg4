@@ -12,17 +12,13 @@ import java.util.List;
  * @author lucas.ribeiro
  */
 public class Topico {
+    private int id;
     private String titulo, criador, conteudo;
     private Date data;
     private Assunto assunto;
     private List<Mensagem> mensagens;
 
-    public Topico(String titulo, String criador, String conteudo, Date data, Assunto assunto) {
-        this.titulo = titulo;
-        this.criador = criador;
-        this.conteudo = conteudo;
-        this.data = data;
-        this.assunto = assunto;
+    public Topico() {
         mensagens = new ArrayList<Mensagem>(0);
     }
 
@@ -70,7 +66,20 @@ public class Topico {
         return mensagens;
     }
     
+    public void setMensagens(List<Mensagem> mensagens){
+        this.mensagens = mensagens;
+    }
+    
     public boolean addMensagem(Mensagem mensagem){
         return mensagens.add(mensagem);
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+    
 }

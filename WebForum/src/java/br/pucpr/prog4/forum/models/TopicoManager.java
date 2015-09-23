@@ -10,8 +10,9 @@ import java.util.List;
  *
  * @author lucas.ribeiro
  */
-public interface AssuntoManager {
+public interface TopicoManager {
     
-    public List<Assunto> getListaDeAssuntos();
-    public Assunto getAssuntoCompleto(Assunto assunto);
+    public List<Topico> getTopicosPorAssunto(Assunto assunto);
+    
+    public Topico getTopicoCompleto(Topico topico);
 }

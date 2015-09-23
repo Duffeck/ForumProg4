@@ -5,13 +5,16 @@
 package br.pucpr.prog4.forum.models.dao;
 
 import br.pucpr.prog4.forum.models.Assunto;
+import br.pucpr.prog4.forum.models.Topico;
 import java.util.List;
 
 /**
  *
  * @author lucas.ribeiro
  */
-public interface AssuntoDao {
-    public List<Assunto> getAssuntos();
-    public Assunto getAssuntoCompleto(Assunto assunto);
+public interface TopicoDao {
+    
+    public List<Topico> getTopicosPorAssunto(Assunto assunto);
+    public Topico getTopicoCompleto(Topico topico);
+    
 }

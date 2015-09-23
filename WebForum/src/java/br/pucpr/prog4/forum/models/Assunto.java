@@ -4,24 +4,14 @@
  */
 package br.pucpr.prog4.forum.models;
 
-import br.pucpr.prog4.forum.enums.AssuntoEnum;
-
 public class Assunto {
     
-    private AssuntoEnum assuntoEnum;
-    private int totalTopicos, totalMensagens;
+    private String nome, descrição;
+    private int totalTopicos, totalMensagens, id;
     private Topico ultimoTopico;
     
-    public Assunto(AssuntoEnum assuntoEnum){
-        this.assuntoEnum = assuntoEnum;
-    }
-
-    public AssuntoEnum getAssuntoEnum() {
-        return assuntoEnum;
-    }
-
-    public void setAssuntoEnum(AssuntoEnum assuntoEnum) {
-        this.assuntoEnum = assuntoEnum;
+    public Assunto(){
+        
     }
 
     public int getTotalTopicos() {
@@ -46,6 +36,30 @@ public class Assunto {
 
     public void setUltimoTopico(Topico ultimoTopico) {
         this.ultimoTopico = ultimoTopico;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getDescrição() {
+        return descrição;
+    }
+
+    public void setDescrição(String descrição) {
+        this.descrição = descrição;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
     
     

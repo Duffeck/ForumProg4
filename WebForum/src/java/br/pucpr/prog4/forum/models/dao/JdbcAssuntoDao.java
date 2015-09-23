@@ -4,7 +4,6 @@
  */
 package br.pucpr.prog4.forum.models.dao;
 
-import br.pucpr.prog4.forum.enums.AssuntoEnum;
 import br.pucpr.prog4.forum.models.Assunto;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -27,46 +26,69 @@ public class JdbcAssuntoDao implements AssuntoDao{
     
     public List<Assunto> getAssuntos() {
         List<Assunto> assuntos = new ArrayList<Assunto>();
-        for(AssuntoEnum assuntoEnum : AssuntoEnum.values()){
-            assuntos.add(getAssunto(assuntoEnum));
+        String sql = "SELECT * FROM assuntos";
+        ResultSet rs;
+        PreparedStatement ps;
+        
+        try{
+            ps = conexão.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while(rs.next()){
+                assuntos.add(criarObjeto(rs));
+            }
+        }catch(SQLException e){
+            throw new DaoException("Erro ao adquirir assuntos da base de dados!");
         }
         return assuntos;
+        
     }
     
-    public Assunto getAssunto(AssuntoEnum assuntoEnum){
+    /*public Assunto getAssunto(Assunto assunto){
         String sql = "SELECT * FROM ?";
-        Assunto assunto;
         ResultSet rs;
         
         PreparedStatement ps;
         try{
             ps = conexão.prepareStatement(sql);
-            ps.setString(1, assuntoEnum.getSigla());
+            
             
             rs = ps.executeQuery();
         }catch(SQLException e){
             throw new DaoException("Erro ao recuperar assuntos no banco de dados!");
         }
         
-        assunto = criarObjeto(rs, assuntoEnum);
+        assunto = criarObjeto(rs);
         
+        return assunto;
+    }*/
+
+    private Assunto criarObjeto(ResultSet rs) {
+        Assunto assunto = new Assunto();
+        try{
+        assunto.setDescrição(rs.getString("DESCRIÇÃO"));
+        assunto.setNome(rs.getString("NOME"));
+        }catch(SQLException e){
+            throw new DaoException("Erro ao criar Assuntos a partir da base de dados!");
+        }
         return assunto;
     }
 
-    private Assunto criarObjeto(ResultSet rs, AssuntoEnum assuntoEnum) {
-        Assunto assunto;
+    public Assunto getAssuntoCompleto(Assunto assunto) {
+        String sql = "SELECT * FROM topicos WHERE ID_ASSUNTO = ?";
+        ResultSet rs;
+        
+        PreparedStatement ps;
         try{
-            if(rs.next()){
-                assunto = new Assunto(assuntoEnum);
-                rs.last();
-                assunto.setTotalTopicos(rs.getRow());
-                //assunto.setTotalMensagens(JdbcDaoManager.getInstance().getMensagemDao().getPorTopico().size());
-                //assunto.setUltimoTopico(JdbcDaoManager.getInstance().getTopicoDao().getPorId(rs.getInt("idtopicos")));
-                return assunto;
-            }
-        }catch(Exception e){
-            throw new DaoException("Erro ao processar arquivos recuperados do banco de dados!");
+            ps = conexão.prepareStatement(sql);
+            ps.setInt(1, assunto.getId());
+            
+            rs = ps.executeQuery();
+        }catch(SQLException e){
+            throw new DaoException("Erro ao recuperar assuntos no banco de dados!");
         }
-        return null;
+        
+        assunto = criarObjeto(rs);
+        
+        return assunto;
     }
 }
