@@ -64,8 +64,9 @@
                     </th>
                 </tr>
                 <c:forEach var="assunto" items="${assuntos}">
+                    <c:set var="id" value="${assunto.id}" />
                     <tr>
-                        <td title="${assunto.descrição}">${assunto.nome}</td>
+                        <td title="${assunto.descrição}"><a href="topicos?assunto=${assunto.id}">${assunto.nome}</a></td>
                         <td style="text-align: center;">${assunto.totalTopicos}</td>
                         <td style="text-align: center;">${assunto.totalMensagens}</td>
                         <td>${assunto.ultimoTopico}</td>

@@ -25,12 +25,14 @@ public class ListaTopicosServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         Assunto assunto = new Assunto();
-        assunto.setId(1);
+        int id = Integer.parseInt(request.getParameter("assunto").trim());
+        assunto.setId(id);
         TopicoManagerImpl mg = new TopicoManagerImpl();
         List<Topico> topicos = mg.getTopicosPorAssunto(assunto);
         
-        request.setAttribute("topios", topicos);
-        RequestDispatcher rd = request.getRequestDispatcher("");
+        request.setAttribute("topicos", topicos);
+        RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/JSP/topicos.jsp");
+        rd.forward(request, response);
     }
 
    

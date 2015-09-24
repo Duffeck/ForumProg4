@@ -13,8 +13,8 @@
         <servlet-class>br.pucpr.prog4.forum.controller.ListaTopicosServlet</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>Topico</servlet-name>
-        <url-pattern>/Topico</url-pattern>
+        <servlet-name>ListaTopicosServlet</servlet-name>
+        <url-pattern>/topicos</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ListaAssuntosServlet</servlet-name>

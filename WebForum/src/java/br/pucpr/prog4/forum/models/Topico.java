@@ -12,7 +12,7 @@ import java.util.List;
  * @author lucas.ribeiro
  */
 public class Topico {
-    private int id;
+    private int id, acessos;
     private String titulo, criador, conteudo;
     private Date data;
     private Assunto assunto;
@@ -80,6 +80,14 @@ public class Topico {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getAcessos() {
+        return acessos;
+    }
+
+    public void setAcessos(int acessos) {
+        this.acessos = acessos;
     }
     
 }

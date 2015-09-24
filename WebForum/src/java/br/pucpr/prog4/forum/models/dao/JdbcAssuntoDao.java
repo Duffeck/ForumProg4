@@ -5,6 +5,7 @@
 package br.pucpr.prog4.forum.models.dao;
 
 import br.pucpr.prog4.forum.models.Assunto;
+import br.pucpr.prog4.forum.models.Topico;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -26,7 +27,7 @@ public class JdbcAssuntoDao implements AssuntoDao{
     
     public List<Assunto> getAssuntos() {
         List<Assunto> assuntos = new ArrayList<Assunto>();
-        String sql = "SELECT * FROM assuntos";
+        String sql = "SELECT assuntos.ID_ASSUNTO, assuntos.NOME, count(topicos.ID_TOPICO) FROM assuntos inner join topicos on topicos.ID_ASSUNTO = assuntos.ID_ASSUNTO";
         ResultSet rs;
         PreparedStatement ps;
         
@@ -67,6 +68,7 @@ public class JdbcAssuntoDao implements AssuntoDao{
         try{
         assunto.setDescrição(rs.getString("DESCRIÇÃO"));
         assunto.setNome(rs.getString("NOME"));
+        assunto.setId(rs.getInt("ID_ASSUNTO"));
         }catch(SQLException e){
             throw new DaoException("Erro ao criar Assuntos a partir da base de dados!");
         }
@@ -74,7 +76,8 @@ public class JdbcAssuntoDao implements AssuntoDao{
     }
 
     public Assunto getAssuntoCompleto(Assunto assunto) {
-        String sql = "SELECT * FROM topicos WHERE ID_ASSUNTO = ?";
+        String sql = "SELECT `theforum`.`assuntos`.ID_ASSUNTO, `theforum`.`assuntos`.NOME, count(`theforum`.`topicos`.ID_TOPICO), (SELECT `theforum`.`topicos`.ID_TOPICO FROM `theforum`.`topicos` WHERE (`theforum`.`assuntos`.ID_ASSUNTO = `theforum`.`topicos`.ID_ASSUNTO) ORDER BY `theforum`.`topicos`.DATA DESC LIMIT 1) AS id_topico\n" +
+"	FROM `theforum`.`assuntos` INNER JOIN `theforum`.`topicos` ON `theforum`.`topicos`.ID_ASSUNTO = `theforum`.`assuntos`.ID_ASSUNTO WHERE `theforum`.`assuntos`.ID_ASSUNTO = ?";
         ResultSet rs;
         
         PreparedStatement ps;
@@ -83,11 +86,14 @@ public class JdbcAssuntoDao implements AssuntoDao{
             ps.setInt(1, assunto.getId());
             
             rs = ps.executeQuery();
+            assunto = criarObjeto(rs);
+            Topico topico = new Topico();
+            topico.setId(rs.getInt("id_topico"));
+            assunto.setUltimoTopico(JdbcDaoManager.getInstance().getTopicoDao().getTopicoCompleto(topico));
         }catch(SQLException e){
             throw new DaoException("Erro ao recuperar assuntos no banco de dados!");
         }
         
-        assunto = criarObjeto(rs);
         
         return assunto;
     }
