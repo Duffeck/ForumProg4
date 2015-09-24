@@ -71,5 +71,9 @@ public class JdbcDaoManager implements DaoManager{
     public AssuntoDao getAssuntoDao() {
         return new JdbcAssuntoDao(conexão);
     }
+
+    public TopicoDao getTopicoDao() {
+        return new JdbcTopicoDao(conexão);
+    }
     
 }

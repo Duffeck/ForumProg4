@@ -8,6 +8,10 @@
         <servlet-name>ListaAssuntosServlet</servlet-name>
         <servlet-class>br.pucpr.prog4.forum.controller.ListaAssuntosServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ListaTopicosServlet</servlet-name>
+        <servlet-class>br.pucpr.prog4.forum.controller.ListaTopicosServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Topico</servlet-name>
         <url-pattern>/Topico</url-pattern>
@@ -15,6 +19,10 @@
     <servlet-mapping>
         <servlet-name>ListaAssuntosServlet</servlet-name>
         <url-pattern>/</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ListaTopicosServlet</servlet-name>
+        <url-pattern>/ListaTopicosServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

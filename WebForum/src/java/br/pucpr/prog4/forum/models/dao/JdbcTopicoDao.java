@@ -42,6 +42,7 @@ public class JdbcTopicoDao implements TopicoDao{
         }catch(SQLException e){
             throw new DaoException("Erro ao recuperar tópicos do banco de dados!");
         }
+        return topicos;
     }
 
     public Topico getTopicoCompleto(Topico topico) {
@@ -57,12 +58,14 @@ public class JdbcTopicoDao implements TopicoDao{
             topico.setTitulo(rs.getString("TITULO"));
             Assunto assunto = new Assunto();
             assunto.setId(rs.getInt("ID_ASSUNTO"));
-            topico.setAssunto(JdbcDaoManager.getInstance().getAssuntoDao().getAssuntoCompleto(assunto));
+            //topico.setAssunto(JdbcDaoManager.getInstance().getAssuntoDao().getAssuntoCompleto(assunto));
             topico.setData(new java.util.Date(rs.getDate("DATA").getTime()));
+            //topico.setMensagens(JdbcDaoManager.getInstance().getMensagemDao().getMensagensPorTopico(topico));
             
         }catch(SQLException e){
             throw new DaoException("Ocorreu um erro ao construir tópicos recuperados da base de dados!");
         }
+        return topico;
     }
     
 }
