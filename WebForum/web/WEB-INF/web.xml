@@ -12,6 +12,10 @@
         <servlet-name>ListaTopicosServlet</servlet-name>
         <servlet-class>br.pucpr.prog4.forum.controller.ListaTopicosServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>TopicoServlet</servlet-name>
+        <servlet-class>br.pucpr.prog4.forum.controller.TopicoServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ListaTopicosServlet</servlet-name>
         <url-pattern>/topicos</url-pattern>
@@ -23,6 +27,10 @@
     <servlet-mapping>
         <servlet-name>ListaTopicosServlet</servlet-name>
         <url-pattern>/ListaTopicosServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TopicoServlet</servlet-name>
+        <url-pattern>/mensagens</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

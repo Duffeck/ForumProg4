@@ -29,8 +29,10 @@ public class ListaTopicosServlet extends HttpServlet {
         assunto.setId(id);
         TopicoManagerImpl mg = new TopicoManagerImpl();
         List<Topico> topicos = mg.getTopicosPorAssunto(assunto);
-        
-        request.setAttribute("topicos", topicos);
+        if(topicos.size()>0)
+            request.setAttribute("topicos", topicos);
+        else
+            request.setAttribute("topicos", null);
         RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/JSP/topicos.jsp");
         rd.forward(request, response);
     }

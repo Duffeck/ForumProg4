@@ -48,7 +48,9 @@
             <h1>The Fórum</h1>
         </div>
         <div>
-            <table>
+            <c:choose>
+                <c:when test="${assuntos != null}">
+                    <table>
                 <tr>
                     <th>
                         Assunto
@@ -63,16 +65,22 @@
                         Última Postagem
                     </th>
                 </tr>
-                <c:forEach var="assunto" items="${assuntos}">
-                    <c:set var="id" value="${assunto.id}" />
-                    <tr>
-                        <td title="${assunto.descrição}"><a href="topicos?assunto=${assunto.id}">${assunto.nome}</a></td>
-                        <td style="text-align: center;">${assunto.totalTopicos}</td>
-                        <td style="text-align: center;">${assunto.totalMensagens}</td>
-                        <td>${assunto.ultimoTopico}</td>
-                    </tr>
-                </c:forEach>
-            </table>
+                        <c:forEach var="assunto" items="${assuntos}">
+                            <c:set var="id" value="${assunto.id}" />
+                            <tr>
+                                <td title="${assunto.descrição}"><a href="topicos?assunto=${assunto.id}">${assunto.nome}</a></td>
+                                <td style="text-align: center;">${assunto.totalTopicos}</td>
+                                <td style="text-align: center;">${assunto.totalMensagens}</td>
+                                <td>${assunto.ultimoTopico}</td>
+                            </tr>
+                        </c:forEach>
+                    </table>
+                    </c:when>
+                    <c:otherwise>
+                        Não há assuntos cadastrados!
+                    </c:otherwise>
+            
+            </c:choose>
         </div>
         
     </body>

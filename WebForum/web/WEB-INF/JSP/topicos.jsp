@@ -48,34 +48,41 @@
             <h1>The Fórum</h1>
         </div>
         <div>
-            <table>
-                <tr>
-                    <th>
-                        Título
-                    </th>
-                    <th>
-                        Autor
-                    </th>
-                    <th>
-                        Total de Respostas
-                    </th>
-                    <th>
-                        Acessos
-                    </th>
-                    <th>
-                        Última mensagem
-                    </th>
-                </tr>
-                <c:forEach var="topico" items="${topicos}">
+            <c:choose>
+                <c:when test="${topicos != null}">
+                <table>
                     <tr>
-                        <td title="${topico.conteudo}">${topico.titulo}</td>
-                        <td style="text-align: center;">${topico.criador}</td>
-                        <td style="text-align: center;"></td>
-                        <td></td>
-                        <td></td>
+                        <th>
+                            Título
+                        </th>
+                        <th>
+                            Autor
+                        </th>
+                        <th>
+                            Total de Respostas
+                        </th>
+                        <th>
+                            Acessos
+                        </th>
+                        <th>
+                            Última mensagem
+                        </th>
                     </tr>
-                </c:forEach>
-            </table>
+                    <c:forEach var="topico" items="${topicos}">
+                        <tr>
+                            <td title="${topico.conteudo}">${topico.titulo}</td>
+                            <td style="text-align: center;">${topico.criador}</td>
+                            <td style="text-align: center;"></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </c:forEach>
+                </table>
+                </c:when>
+                <c:otherwise>
+                    Nenhum tópico registrado!
+                </c:otherwise>
+            </c:choose>
         </div>
         
     </body>

@@ -9,5 +9,6 @@ public interface DaoManager
     
     AssuntoDao getAssuntoDao();
     TopicoDao getTopicoDao();
+    MensagemDao getMensagemDao();
     
 }
