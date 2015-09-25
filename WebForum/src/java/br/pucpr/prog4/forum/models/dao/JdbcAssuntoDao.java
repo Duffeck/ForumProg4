@@ -27,7 +27,11 @@ public class JdbcAssuntoDao implements AssuntoDao{
     
     public List<Assunto> getAssuntos() {
         List<Assunto> assuntos = new ArrayList<Assunto>();
-        String sql = "SELECT assuntos.ID_ASSUNTO, assuntos.NOME, count(topicos.ID_TOPICO) FROM assuntos inner join topicos on topicos.ID_ASSUNTO = assuntos.ID_ASSUNTO";
+        String sql = "SELECT `theforum`.`assuntos`.`ID_ASSUNTO`,\n" +
+"    `theforum`.`assuntos`.`NOME`,\n" +
+"    `theforum`.`assuntos`.`DESCRIÇÃO`,\n" +
+"    (SELECT COUNT(`theforum`.`topicos`.ID_TOPICO) FROM `theforum`.`topicos` WHERE `theforum`.`topicos`.ID_ASSUNTO = `theforum`.`assuntos`.ID_ASSUNTO) as TOPICOS\n" +
+"FROM `theforum`.`assuntos`";
         ResultSet rs;
         PreparedStatement ps;
         
@@ -69,6 +73,7 @@ public class JdbcAssuntoDao implements AssuntoDao{
         assunto.setDescrição(rs.getString("DESCRIÇÃO"));
         assunto.setNome(rs.getString("NOME"));
         assunto.setId(rs.getInt("ID_ASSUNTO"));
+        assunto.setTotalTopicos(rs.getInt("TOPICOS"));
         }catch(SQLException e){
             throw new DaoException("Erro ao criar Assuntos a partir da base de dados!");
         }
