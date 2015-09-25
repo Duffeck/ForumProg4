@@ -7,6 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <html>
     <head>
         <style type="text/css">
@@ -72,7 +73,7 @@
                         <tr>
                             <td title="${topico.conteudo}">${topico.titulo}</td>
                             <td style="text-align: center;">${topico.criador}</td>
-                            <td style="text-align: center;"></td>
+                            <td style="text-align: center;">${fn:length(topico.mensagens)}</td>
                             <td></td>
                             <td></td>
                         </tr>

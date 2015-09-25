@@ -26,6 +26,7 @@ public class JdbcTopicoDao implements TopicoDao{
 
     public List<Topico> getTopicosPorAssunto(Assunto assunto) {
         List<Topico> topicos = new ArrayList<Topico>();
+        Topico topico;
         String sql = "SELECT * FROM topicos WHERE ID_ASSUNTO = ?";
         PreparedStatement ps;
         ResultSet rs;
@@ -60,7 +61,7 @@ public class JdbcTopicoDao implements TopicoDao{
             assunto.setId(rs.getInt("ID_ASSUNTO"));
             //topico.setAssunto(JdbcDaoManager.getInstance().getAssuntoDao().getAssuntoCompleto(assunto));
             topico.setData(new java.util.Date(rs.getDate("DATA").getTime()));
-            //topico.setMensagens(JdbcDaoManager.getInstance().getMensagemDao().getMensagensPorTopico(topico));
+            topico.setMensagens(JdbcDaoManager.getInstance().getMensagemDao().getMensagensPorTopico(topico));
             
         }catch(SQLException e){
             throw new DaoException("Ocorreu um erro ao construir tópicos recuperados da base de dados!");
