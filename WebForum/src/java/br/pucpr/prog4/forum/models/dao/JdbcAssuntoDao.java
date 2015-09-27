@@ -39,6 +39,7 @@ public class JdbcAssuntoDao implements AssuntoDao{
             ps = conexão.prepareStatement(sql);
             rs = ps.executeQuery();
             while(rs.next()){
+                
                 assuntos.add(criarObjeto(rs));
             }
         }catch(SQLException e){
@@ -69,11 +70,18 @@ public class JdbcAssuntoDao implements AssuntoDao{
 
     private Assunto criarObjeto(ResultSet rs) {
         Assunto assunto = new Assunto();
+        List<Topico> topicos;
+        int totalMensagens = 0;
         try{
         assunto.setDescrição(rs.getString("DESCRIÇÃO"));
         assunto.setNome(rs.getString("NOME"));
         assunto.setId(rs.getInt("ID_ASSUNTO"));
-        assunto.setTotalTopicos(rs.getInt("TOPICOS"));
+        topicos = JdbcDaoManager.getInstance().getTopicoDao().getTopicosPorAssunto(assunto);
+        for(Topico topico : topicos){
+            totalMensagens += (JdbcDaoManager.getInstance().getMensagemDao().getMensagensPorTopico(topico)).size();
+        }
+        assunto.setTotalTopicos(topicos.size());
+        assunto.setTotalMensagens(totalMensagens);
         }catch(SQLException e){
             throw new DaoException("Erro ao criar Assuntos a partir da base de dados!");
         }
@@ -94,7 +102,7 @@ public class JdbcAssuntoDao implements AssuntoDao{
             assunto = criarObjeto(rs);
             Topico topico = new Topico();
             topico.setId(rs.getInt("id_topico"));
-            assunto.setUltimoTopico(JdbcDaoManager.getInstance().getTopicoDao().getTopicoCompleto(topico));
+            assunto.setUltimaMensagem(JdbcDaoManager.getInstance().getMensagemDao().getLastMensagem(topico));
         }catch(SQLException e){
             throw new DaoException("Erro ao recuperar assuntos no banco de dados!");
         }

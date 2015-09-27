@@ -15,4 +15,5 @@ import java.util.List;
 public interface MensagemDao {
     
     public List<Mensagem> getMensagensPorTopico(Topico topico);
+    public Mensagem getLastMensagem(Topico topico);
 }

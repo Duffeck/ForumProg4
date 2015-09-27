@@ -8,7 +8,7 @@ public class Assunto {
     
     private String nome, descrição;
     private int totalTopicos, totalMensagens, id;
-    private Topico ultimoTopico;
+    private Mensagem ultimaMensagem;
     
     public Assunto(){
         
@@ -30,12 +30,12 @@ public class Assunto {
         this.totalMensagens = totalMensagens;
     }
 
-    public Topico getUltimoTopico() {
-        return ultimoTopico;
+    public Mensagem getUltimaMensagem() {
+        return ultimaMensagem;
     }
 
-    public void setUltimoTopico(Topico ultimoTopico) {
-        this.ultimoTopico = ultimoTopico;
+    public void setUltimaMensagem(Mensagem ultimaMensagem) {
+        this.ultimaMensagem = ultimaMensagem;
     }
 
     public String getNome() {

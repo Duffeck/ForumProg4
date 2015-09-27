@@ -70,8 +70,8 @@
                             <tr>
                                 <td title="${assunto.descrição}"><a href="topicos?assunto=${assunto.id}">${assunto.nome}</a></td>
                                 <td style="text-align: center;">${assunto.totalTopicos}</td>
-                                <td style="text-align: center;">${assunto.totalMensagens}</td>
-                                <td>${assunto.ultimoTopico}</td>
+                                <td style="text-align: center;"><c:out value="${assunto.totalMensagens}"/></td>
+                                <td>${assunto.ultimaMensagem}</td>
                             </tr>
                         </c:forEach>
                     </table>

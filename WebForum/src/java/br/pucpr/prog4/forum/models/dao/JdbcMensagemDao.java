@@ -60,5 +60,26 @@ public class JdbcMensagemDao implements MensagemDao{
             throw new DaoException("Erro ao criar objetos do banco de dados!");
         }
     }
+
+    public Mensagem getLastMensagem(Topico topico) {
+        List<Mensagem> mensagens = new ArrayList<Mensagem>(0);
+        String sql = "SELECT * FROM mensagens WHERE ID_TOPICO = ?";
+        PreparedStatement ps;
+        ResultSet rs;
+        
+        try{
+            ps = conexão.prepareStatement(sql);
+            ps.setInt(1, topico.getId());
+            
+            rs = ps.executeQuery();
+            while(rs.next()){
+                mensagens.add(criarObjetos(rs));
+            }
+            
+            return null;
+        }catch(SQLException e){
+            throw new DaoException("Erro ao recuperar mensagens do banco de dados!");
+        }
+    }
     
 }
