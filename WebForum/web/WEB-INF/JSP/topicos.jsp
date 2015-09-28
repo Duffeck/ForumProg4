@@ -49,6 +49,10 @@
             <h1>The Fórum</h1>
         </div>
         <div>
+             <form action="demo_form.asp" method="post">
+                <button type="submit"  formaction="topicos">Perguntar</button>
+             </form> 
+            
             <c:choose>
                 <c:when test="${topicos != null}">
                 <table>
@@ -71,11 +75,11 @@
                     </tr>
                     <c:forEach var="topico" items="${topicos}">
                         <tr>
-                            <td title="${topico.conteudo}">${topico.titulo}</td>
+                            <td title="${topico.conteudo}"><a href="mensagens?topico=${topico.id}">${topico.titulo}</a></td>
                             <td style="text-align: center;">${topico.criador}</td>
                             <td style="text-align: center;">${fn:length(topico.mensagens)}</td>
                             <td></td>
-                            <td></td>
+                            <td>Por: ${topico.mensagens[fn:length(topico.mensagens)-1].criador}<br />${topico.mensagens[fn:length(topico.mensagens)-1].data}</td>
                         </tr>
                     </c:forEach>
                 </table>

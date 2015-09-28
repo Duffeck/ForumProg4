@@ -27,7 +27,7 @@ public class JdbcTopicoDao implements TopicoDao{
     public List<Topico> getTopicosPorAssunto(Assunto assunto) {
         List<Topico> topicos = new ArrayList<Topico>();
         Topico topico;
-        String sql = "SELECT * FROM topicos WHERE ID_ASSUNTO = ?";
+        String sql = "SELECT * FROM topicos WHERE ID_ASSUNTO = ? ORDER BY topicos.DATA";
         PreparedStatement ps;
         ResultSet rs;
         
@@ -47,7 +47,22 @@ public class JdbcTopicoDao implements TopicoDao{
     }
 
     public Topico getTopicoCompleto(Topico topico) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String sql ="SELECT * FROM theforum.topicos where topicos.ID_TOPICO = ?";
+        PreparedStatement ps;
+        ResultSet rs;
+        try{
+            ps = conexão.prepareStatement(sql);
+            ps.setInt(1, topico.getId());
+            
+            rs = ps.executeQuery();
+            if(rs.next()){
+                topico = criarObjeto(rs);
+            }
+        }catch(SQLException e){
+            throw new DaoException("Erro interno do sistema!");
+        }
+        
+        return topico;
     }
 
     private Topico criarObjeto(ResultSet rs) {

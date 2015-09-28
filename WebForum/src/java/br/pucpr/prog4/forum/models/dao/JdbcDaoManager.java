@@ -30,7 +30,7 @@ public class JdbcDaoManager implements DaoManager{
             Class.forName("com.mysql.jdbc.Driver");
             String url;
             url = "jdbc:mysql://localhost:3306/theforum";//nome do schema
-            conexão = DriverManager.getConnection(url, "root", "root");
+            conexão = DriverManager.getConnection(url, "root", "");
             conexão.setAutoCommit(false);
         }catch(Exception e){
             throw new DaoException("Ocorreu um erro ao conectar ao banco de dados:" + 

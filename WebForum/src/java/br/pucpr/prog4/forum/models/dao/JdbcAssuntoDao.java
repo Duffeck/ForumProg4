@@ -5,12 +5,15 @@
 package br.pucpr.prog4.forum.models.dao;
 
 import br.pucpr.prog4.forum.models.Assunto;
+import br.pucpr.prog4.forum.models.Mensagem;
 import br.pucpr.prog4.forum.models.Topico;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -71,17 +74,29 @@ public class JdbcAssuntoDao implements AssuntoDao{
     private Assunto criarObjeto(ResultSet rs) {
         Assunto assunto = new Assunto();
         List<Topico> topicos;
-        int totalMensagens = 0;
+        List<Mensagem> mensagens = new ArrayList<Mensagem>(0);
         try{
         assunto.setDescrição(rs.getString("DESCRIÇÃO"));
         assunto.setNome(rs.getString("NOME"));
         assunto.setId(rs.getInt("ID_ASSUNTO"));
         topicos = JdbcDaoManager.getInstance().getTopicoDao().getTopicosPorAssunto(assunto);
+        List<Mensagem> aux;
         for(Topico topico : topicos){
-            totalMensagens += (JdbcDaoManager.getInstance().getMensagemDao().getMensagensPorTopico(topico)).size();
+            for(Mensagem mensagem : topico.getMensagens()){
+                mensagens.add(mensagem);
+            }
         }
+        Collections.sort(mensagens, new Comparator<Mensagem>() {
+        @Override
+        public int compare(Mensagem  mensagem1, Mensagem  mensagem2)
+        {
+
+            return  mensagem1.getData().compareTo(mensagem2.getData());
+        }
+        });
+        assunto.setUltimaMensagem(mensagens.get(mensagens.size()-1));
         assunto.setTotalTopicos(topicos.size());
-        assunto.setTotalMensagens(totalMensagens);
+        assunto.setTotalMensagens(mensagens.size());
         }catch(SQLException e){
             throw new DaoException("Erro ao criar Assuntos a partir da base de dados!");
         }
@@ -89,8 +104,8 @@ public class JdbcAssuntoDao implements AssuntoDao{
     }
 
     public Assunto getAssuntoCompleto(Assunto assunto) {
-        String sql = "SELECT `theforum`.`assuntos`.ID_ASSUNTO, `theforum`.`assuntos`.NOME, count(`theforum`.`topicos`.ID_TOPICO), (SELECT `theforum`.`topicos`.ID_TOPICO FROM `theforum`.`topicos` WHERE (`theforum`.`assuntos`.ID_ASSUNTO = `theforum`.`topicos`.ID_ASSUNTO) ORDER BY `theforum`.`topicos`.DATA DESC LIMIT 1) AS id_topico\n" +
-"	FROM `theforum`.`assuntos` INNER JOIN `theforum`.`topicos` ON `theforum`.`topicos`.ID_ASSUNTO = `theforum`.`assuntos`.ID_ASSUNTO WHERE `theforum`.`assuntos`.ID_ASSUNTO = ?";
+        String sql = "SELECT * " +
+"	FROM `theforum`.`assuntos` WHERE assuntos.ID_ASSUNTO = ?";
         ResultSet rs;
         
         PreparedStatement ps;
@@ -99,7 +114,7 @@ public class JdbcAssuntoDao implements AssuntoDao{
             ps.setInt(1, assunto.getId());
             
             rs = ps.executeQuery();
-            assunto = criarObjeto(rs);
+            assunto = criarObjetok(rs);
             Topico topico = new Topico();
             topico.setId(rs.getInt("id_topico"));
             assunto.setUltimaMensagem(JdbcDaoManager.getInstance().getMensagemDao().getLastMensagem(topico));
@@ -108,6 +123,18 @@ public class JdbcAssuntoDao implements AssuntoDao{
         }
         
         
+        return assunto;
+    }
+
+    private Assunto criarObjetok(ResultSet rs) {
+        Assunto assunto = new Assunto();
+        try{
+        assunto.setDescrição(rs.getString("DESCRIÇÃO"));
+        assunto.setNome(rs.getString("NOME"));
+        assunto.setId(rs.getInt("ID_ASSUNTO"));
+        }catch(SQLException e){
+            throw new DaoException("Erro ao criar Assuntos a partir da base de dados!");
+        }
         return assunto;
     }
 }

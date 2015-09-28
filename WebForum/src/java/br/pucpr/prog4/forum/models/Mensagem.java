@@ -5,13 +5,14 @@
 
 package br.pucpr.prog4.forum.models;
 
+import java.text.DateFormat;
 import java.util.Date;
 
 /**
  *
  * @author lucas.ribeiro
  */
-public class Mensagem{
+public class Mensagem {
 
     private int idtopico, id;
     private String criador, conteudo;
@@ -44,8 +45,10 @@ public class Mensagem{
         this.conteudo = conteudo;
     }
 
-    public Date getData() {
-        return data;
+    public String getData() {
+        String myData;
+        myData = DateFormat.getDateInstance().format(this.data);
+        return myData; 
     }
 
     public void setData(Date data) {
@@ -58,7 +61,6 @@ public class Mensagem{
 
     public void setId(int id) {
         this.id = id;
-    }
-    
+    } 
     
 }

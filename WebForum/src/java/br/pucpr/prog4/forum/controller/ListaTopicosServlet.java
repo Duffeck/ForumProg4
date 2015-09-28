@@ -36,6 +36,13 @@ public class ListaTopicosServlet extends HttpServlet {
         RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/JSP/topicos.jsp");
         rd.forward(request, response);
     }
+    
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/JSP/topicos.jsp");
+        rd.forward(request, response);
+    }
 
    
 }

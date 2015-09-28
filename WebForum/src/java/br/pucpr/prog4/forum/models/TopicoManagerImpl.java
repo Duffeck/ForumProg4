@@ -36,7 +36,23 @@ public class TopicoManagerImpl implements TopicoManager{
     }
 
     public Topico getTopicoCompleto(Topico topico) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Topico aux;
+        DaoManager mg = DaoFactory.getInstance();
+        
+        try{
+            mg.iniciar();
+            TopicoDao dao = mg.getTopicoDao();
+            
+            aux = dao.getTopicoCompleto(topico);
+            
+            mg.confirmarTransação();
+            mg.encerrar();
+            
+            return aux;
+        }catch(Exception e){
+            mg.abortarTransação();
+            return null;
+        }
     }
     
 }

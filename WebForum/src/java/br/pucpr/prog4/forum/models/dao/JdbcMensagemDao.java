@@ -27,7 +27,7 @@ public class JdbcMensagemDao implements MensagemDao{
     
     public List<Mensagem> getMensagensPorTopico(Topico topico) {
         List<Mensagem> mensagens = new ArrayList<Mensagem>(0);
-        String sql = "SELECT * FROM mensagens WHERE ID_TOPICO = ?";
+        String sql = "SELECT * FROM mensagens WHERE ID_TOPICO = ? ORDER BY mensagens.DATA";
         PreparedStatement ps;
         ResultSet rs;
         

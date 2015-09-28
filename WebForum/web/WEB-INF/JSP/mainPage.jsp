@@ -71,7 +71,7 @@
                                 <td title="${assunto.descrição}"><a href="topicos?assunto=${assunto.id}">${assunto.nome}</a></td>
                                 <td style="text-align: center;">${assunto.totalTopicos}</td>
                                 <td style="text-align: center;"><c:out value="${assunto.totalMensagens}"/></td>
-                                <td>${assunto.ultimaMensagem}</td>
+                                <td>Por: ${assunto.ultimaMensagem.criador}<br />${assunto.ultimaMensagem.data}  <a href="mensagens?topico=${assunto.ultimaMensagem.idtopico}">Acessar >></a></td>
                             </tr>
                         </c:forEach>
                     </table>

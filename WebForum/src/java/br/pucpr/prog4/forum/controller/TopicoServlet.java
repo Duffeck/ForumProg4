@@ -4,6 +4,9 @@
  */
 package br.pucpr.prog4.forum.controller;
 
+import br.pucpr.prog4.forum.models.Topico;
+import br.pucpr.prog4.forum.models.TopicoManagerImpl;
+import br.pucpr.prog4.forum.models.dao.DaoManager;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
@@ -22,7 +25,12 @@ public class TopicoServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
+        TopicoManagerImpl manager = new TopicoManagerImpl();
+        Topico topico = new Topico();
+        topico.setId(Integer.parseInt(request.getParameter("topico").trim()));
+        topico = manager.getTopicoCompleto(topico);
         
+        request.setAttribute("topico", topico);
         RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/JSP/topico.jsp");
         rd.forward(request, response);
     }
