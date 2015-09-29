@@ -58,7 +58,7 @@
                     <td colspan="2"><textarea name="conteudo" rows="8" cols="100"></textarea></td>
                 </tr>
                 <tr>
-                    <td>${ae}</td>
+                    <td><input type="hidden" name="assunto" value="${ae}"></td>
                     <td><button type="submit">Enviar</button></td>
                 </tr>
             </form>

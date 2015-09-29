@@ -17,4 +17,6 @@ public interface TopicoDao {
     public List<Topico> getTopicosPorAssunto(Assunto assunto);
     public Topico getTopicoCompleto(Topico topico);
     
+    public Topico inserirTopico(Topico topico);
+    
 }

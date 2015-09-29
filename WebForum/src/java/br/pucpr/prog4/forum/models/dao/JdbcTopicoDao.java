@@ -83,5 +83,38 @@ public class JdbcTopicoDao implements TopicoDao{
         }
         return topico;
     }
+
+    public Topico inserirTopico(Topico topico) {
+        String sql = "INSERT INTO `theforum`.`topicos` " +
+                        "(`TITULO`, " +
+                        "`CRIADOR`, " +
+                        "`CONTEUDO`," +
+                        "`DATA`, " +
+                        "`ID_ASSUNTO`, " +
+                        "`ACESSOS`) " +
+                        "VALUES " +
+                        "(?, " +
+                        "?, " +
+                        "?, " +
+                        "?, " +
+                        "?, " +
+                        "? );";
+        
+        PreparedStatement ps;
+        try{
+            ps = conexão.prepareStatement(sql);
+            ps.setString(1, topico.getTitulo());
+            ps.setString(2, topico.getCriador());
+            ps.setString(3, topico.getConteudo());
+            ps.setDate(4, new java.sql.Date(topico.getDataInData().getTime()));
+            ps.setInt(5, topico.getAssunto().getId());
+            ps.setInt(6, topico.getAcessos());
+            
+            topico.setId(ps.executeUpdate());
+        }catch(SQLException e){
+            throw new DaoException("Erro ao inserir!");
+        }
+        return topico;
+    }
     
 }

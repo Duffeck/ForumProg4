@@ -54,5 +54,23 @@ public class TopicoManagerImpl implements TopicoManager{
             return null;
         }
     }
+
+    public Topico inserirTopico(Topico topico) {
+        DaoManager mg = DaoFactory.getInstance();
+        try{
+            mg.iniciar();
+            TopicoDao dao = mg.getTopicoDao();
+            
+            topico = dao.inserirTopico(topico);
+            
+            mg.confirmarTransação();
+            mg.encerrar();
+            
+            return topico;
+        }catch(Exception e){
+            mg.abortarTransação();
+            return null;
+        }
+    }
     
 }

@@ -52,6 +52,10 @@ public class Topico {
         myData = DateFormat.getDateInstance().format(this.data);
         return myData; 
     }
+    
+    public Date getDataInData() {
+        return data; 
+    }
 
     public void setData(Date data) {
         this.data = data;
