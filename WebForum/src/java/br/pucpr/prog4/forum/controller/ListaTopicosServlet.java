@@ -29,9 +29,10 @@ public class ListaTopicosServlet extends HttpServlet {
         assunto.setId(id);
         TopicoManagerImpl mg = new TopicoManagerImpl();
         List<Topico> topicos = mg.getTopicosPorAssunto(assunto);
-        if(topicos.size()>0)
+        if(topicos.size()>0){
             request.setAttribute("topicos", topicos);
-        else
+            request.setAttribute("idassunto", assunto.getId());
+        }else
             request.setAttribute("topicos", null);
         RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/JSP/topicos.jsp");
         rd.forward(request, response);
@@ -40,7 +41,11 @@ public class ListaTopicosServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/JSP/topicos.jsp");
+        
+        String nome = request.getParameter("nome");
+        int idassunto = Integer.parseInt(request.getParameter("assunto").trim());
+        request.setAttribute("ae", idassunto);
+        RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/JSP/escreverTopico.jsp");
         rd.forward(request, response);
     }
 

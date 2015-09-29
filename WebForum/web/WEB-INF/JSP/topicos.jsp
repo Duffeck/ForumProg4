@@ -49,7 +49,8 @@
             <h1>The Fórum</h1>
         </div>
         <div>
-             <form action="demo_form.asp" method="post">
+             <form action="topico" method="post">
+                <input type="hidden" name="assunto" value="${idassunto}" />
                 <button type="submit"  formaction="topicos">Perguntar</button>
              </form> 
             
